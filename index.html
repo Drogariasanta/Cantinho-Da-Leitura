@@ -202,28 +202,34 @@
   <button id="cartButton" onclick="viewCart()">Ver Carrinho</button>
 
   <script>
-    // Atualize com o link correto da sua planilha CSV
+    // Link da planilha CSV
     const spreadsheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSWRKbzazcMWt0NBzU5t91uq40CVwG80y6Z4ZqLTjde4duDPlLk9vY2PJks1lm2ZkAv3REIrWJSp5ys/pub?output=csv";
     
     let cart = [];
     let allProducts = [];
 
     async function fetchData() {
-      if (allProducts.length === 0) {
-        const response = await fetch(spreadsheetUrl);
-        const data = await response.text();
-        allProducts = parseCSV(data);
+      try {
+        if (allProducts.length === 0) {
+          const response = await fetch(spreadsheetUrl);
+          const data = await response.text();
+          allProducts = parseCSV(data);
+        }
+        return allProducts;
+      } catch (error) {
+        console.error("Erro ao buscar dados:", error);
+        return [];
       }
-      return allProducts;
     }
 
+    // Função simples para parse de CSV (atenção: essa função é básica e não trata casos com vírgulas entre aspas)
     function parseCSV(data) {
-      const rows = data.split("\n");
-      const headers = rows[0].split(",");
+      const rows = data.split("\n").filter(row => row.trim() !== "");
+      const headers = rows[0].split(",").map(header => header.trim());
       return rows.slice(1).map(row => {
-        const values = row.split(",");
+        const values = row.split(",").map(val => val.trim());
         return headers.reduce((acc, header, index) => {
-          acc[header.trim()] = values[index]?.trim();
+          acc[header] = values[index] || "";
           return acc;
         }, {});
       });
@@ -233,17 +239,21 @@
       const productContainer = document.getElementById("productContainer");
       productContainer.innerHTML = "";
       products.forEach(product => {
-        // Espera que a planilha possua as colunas: "Imagem", "Nome", "Descricao" e "Preco"
-        if (product["Nome"] && product["Imagem"]) {
+        // Tenta capturar os valores com base em possíveis nomes de colunas
+        const nome = product["Nome"] || product["Nome do Produto"];
+        const descricao = product["Descricao"] || product["Descrição"] || product["Descrição do Produto"];
+        const preco = product["Preco"] || product["Preço"];
+        const imagem = product["Imagem"];
+        if (nome && imagem) {
           const productElement = `
             <div class="product">
-              <img src="${product["Imagem"]}" alt="${product["Nome"]}">
-              <h3>${product["Nome"]}</h3>
-              <p>${product["Descricao"]}</p>
-              <div class="price">${product["Preco"]}</div>
+              <img src="${imagem}" alt="${nome}">
+              <h3>${nome}</h3>
+              <p>${descricao}</p>
+              <div class="price">${preco}</div>
               <div class="button-group">
-                <button class="btn" onclick="addToCart('${product["Nome"]}', '${product["Preco"]}')">Adicionar ao Carrinho</button>
-                <a href="https://wa.me/553534703859?text=Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20${encodeURIComponent(product["Nome"])}" class="btn contact" target="_blank">Entrar em Contato</a>
+                <button class="btn" onclick="addToCart('${nome}', '${preco}')">Adicionar ao Carrinho</button>
+                <a href="https://wa.me/553534703859?text=Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20${encodeURIComponent(nome)}" class="btn contact" target="_blank">Entrar em Contato</a>
               </div>
             </div>`;
           productContainer.innerHTML += productElement;
