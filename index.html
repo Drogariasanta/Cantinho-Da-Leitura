@@ -114,30 +114,24 @@
             try {
                 const response = await fetch(spreadsheetUrl);
                 const data = await response.text();
-                console.log("Dados carregados:", data);  // Verificar se os dados estão sendo carregados corretamente
                 parseCSV(data);
             } catch (error) {
                 document.getElementById("loading").innerText = "Erro ao carregar produtos.";
-                console.error("Erro ao carregar os dados:", error); // Exibir erro no console se houver falha
             }
         }
 
         function parseCSV(data) {
-            const rows = data.split("\n").slice(1);  // Remove a primeira linha (cabeçalho)
-            console.log("Linhas do CSV:", rows); // Verificar se as linhas estão sendo separadas corretamente
-
+            const rows = data.split("\n").slice(1); // Remove a primeira linha (cabeçalho)
             const productContainer = document.getElementById("productContainer");
             productContainer.innerHTML = "";
 
             rows.forEach(row => {
-                const columns = row.split(",");
-                if (columns.length >= 4) {  // Verifica se há pelo menos 4 colunas
-                    const image = columns[0].trim();
-                    const name = columns[1].trim();
-                    const description = columns[2].trim();
-                    const price = columns[3].trim(); // A categoria foi removida
-
-                    console.log("Produto:", name, image, price); // Verificar se os produtos estão sendo extraídos corretamente
+                const columns = row.split(",").map(col => col.trim()); // Remover espaços extra de cada coluna
+                if (columns.length >= 4) {
+                    const image = columns[0];
+                    const name = columns[1];
+                    const description = columns[2];
+                    const price = columns[3];
 
                     if (image && name && price) {
                         productContainer.innerHTML += `
