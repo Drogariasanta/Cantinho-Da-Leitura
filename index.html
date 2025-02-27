@@ -6,9 +6,9 @@
   <title>Cantinho da Leitura</title>
   <style>
     :root {
-      --primary: #6D4C41;      /* Marrom para o cabeçalho e rodapé */
+      --primary: #6D4C41;      /* Marrom para cabeçalho, botões e rodapé */
       --secondary: #4E342E;    /* Marrom mais escuro para detalhes */
-      --accent: #A1887F;       /* Tom mais claro para destaques */
+      --accent: #A1887F;       /* Destaque suave */
       --text-color: #333;
       --bg-color: #f5f5f5;
       --footer-bg: #6D4C41;
@@ -23,7 +23,6 @@
     }
     header {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
-      padding: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -32,6 +31,7 @@
       position: relative;
       height: 300px;
       overflow: hidden;
+      padding: 20px;
     }
     header h1 {
       font-size: 2.8em;
@@ -53,39 +53,16 @@
       0%, 100% { transform: translateX(-50%) translateY(0); }
       50% { transform: translateX(-50%) translateY(-10px); }
     }
-    nav {
-      text-align: center;
-      background-color: var(--secondary);
-      padding: 10px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    nav label {
-      color: #fff;
-      font-size: 1em;
-      margin-right: 10px;
-    }
-    nav select {
-      padding: 10px;
-      font-size: 1em;
-      border: none;
-      border-radius: 5px;
-      background-color: var(--accent);
-      color: white;
-      transition: background-color 0.3s ease;
-    }
-    nav select:hover {
-      background-color: var(--secondary);
-    }
     .container {
       max-width: 1200px;
-      margin: auto;
-      padding: 20px;
+      margin: 20px auto;
+      padding: 0 20px;
     }
     #productContainer {
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
       gap: 20px;
+      justify-content: center;
     }
     .product {
       background: #fff;
@@ -96,11 +73,11 @@
       text-align: center;
       flex: 1 1 calc(33.33% - 40px);
       box-sizing: border-box;
-      min-height: 250px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      min-width: 250px;
     }
     .product:hover {
       transform: translateY(-5px);
@@ -109,19 +86,19 @@
     .product img {
       max-width: 100%;
       height: auto;
-      object-fit: contain;
-      border-radius: 10px;
+      border-radius: 5px;
       margin-bottom: 10px;
-      max-height: 150px;
+      object-fit: cover;
+      max-height: 180px;
     }
     .product h3 {
-      font-size: 1.1em;
+      font-size: 1.3em;
       margin: 10px 0;
       color: var(--primary);
     }
     .product p {
+      font-size: 0.95em;
       color: #666;
-      font-size: 0.9em;
       margin-bottom: 10px;
     }
     .price {
@@ -143,6 +120,7 @@
       margin: 5px;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      border: none;
     }
     .button-group .btn:hover {
       background-color: var(--secondary);
@@ -165,6 +143,7 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
       z-index: 10;
+      border: none;
     }
     #cartButton:hover {
       background-color: var(--secondary);
@@ -180,6 +159,7 @@
     @media (max-width: 768px) {
       header {
         height: 220px;
+        padding: 10px;
       }
       header h1 {
         font-size: 2em;
@@ -190,6 +170,7 @@
       }
       #productContainer {
         flex-direction: column;
+        align-items: center;
       }
       .product {
         flex: 1 1 100%;
@@ -208,17 +189,9 @@
     </div>
   </header>
 
-  <nav>
-    <label for="categoryFilter">Selecione um Gênero:</label>
-    <select id="categoryFilter" onchange="filterByCategory()">
-      <!-- Gêneros serão carregados dinamicamente -->
-    </select>
-  </nav>
-
   <div class="container">
-    <h2 id="categoryTitle">Todos os Livros</h2>
     <div id="productContainer">
-      <!-- Livros serão carregados dinamicamente -->
+      <!-- Produtos serão carregados aqui -->
     </div>
   </div>
 
@@ -229,9 +202,9 @@
   <button id="cartButton" onclick="viewCart()">Ver Carrinho</button>
 
   <script>
-    // Link da planilha (atualize para o link do Cantinho da Leitura)
-    const spreadsheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vNewLinkForCantinhoDaLeitura/pub?output=csv";
-
+    // Atualize com o link correto da sua planilha CSV
+    const spreadsheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSWRKbzazcMWt0NBzU5t91uq40CVwG80y6Z4ZqLTjde4duDPlLk9vY2PJks1lm2ZkAv3REIrWJSp5ys/pub?output=csv";
+    
     let cart = [];
     let allProducts = [];
 
@@ -256,31 +229,21 @@
       });
     }
 
-    // Considera que os dados da planilha possuem as colunas: "Título", "Gênero", "Descrição", "Preço" e "Imagem"
-    function populateCategories(products) {
-      const categoryFilter = document.getElementById("categoryFilter");
-      const uniqueCategories = new Set(products.map(p => p["Gênero"]).filter(c => c));
-      const sortedCategories = ["Todos", ...Array.from(uniqueCategories).sort()];
-      sortedCategories.forEach(category => {
-        categoryFilter.innerHTML += `<option value="${category}">${category}</option>`;
-      });
-    }
-
     function populateProducts(products) {
       const productContainer = document.getElementById("productContainer");
       productContainer.innerHTML = "";
       products.forEach(product => {
-        if (product["Título"] && product["Gênero"]) {
-          const categoryClass = product["Gênero"].toLowerCase().replace(/\s+/g, '-');
+        // Espera que a planilha possua as colunas: "Imagem", "Nome", "Descricao" e "Preco"
+        if (product["Nome"] && product["Imagem"]) {
           const productElement = `
-            <div class="product ${categoryClass}">
-              <img src="${product["Imagem"]}" alt="${product["Título"]}">
-              <h3>${product["Título"]}</h3>
-              <p>${product["Descrição"]}</p>
-              <div class="price">${product["Preço"]}</div>
+            <div class="product">
+              <img src="${product["Imagem"]}" alt="${product["Nome"]}">
+              <h3>${product["Nome"]}</h3>
+              <p>${product["Descricao"]}</p>
+              <div class="price">${product["Preco"]}</div>
               <div class="button-group">
-                <button class="btn" onclick="addToCart('${product["Título"]}', '${product["Preço"]}')">Adicionar ao Carrinho</button>
-                <a href="https://wa.me/553534703859?text=Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20${encodeURIComponent(product["Título"])}" class="btn contact" target="_blank">Entrar em Contato</a>
+                <button class="btn" onclick="addToCart('${product["Nome"]}', '${product["Preco"]}')">Adicionar ao Carrinho</button>
+                <a href="https://wa.me/553534703859?text=Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20${encodeURIComponent(product["Nome"])}" class="btn contact" target="_blank">Entrar em Contato</a>
               </div>
             </div>`;
           productContainer.innerHTML += productElement;
@@ -288,9 +251,9 @@
       });
     }
 
-    function addToCart(title, price) {
-      cart.push({ title, price });
-      alert(`${title} foi adicionado ao carrinho!`);
+    function addToCart(name, price) {
+      cart.push({ name, price });
+      alert(`${name} foi adicionado ao carrinho!`);
     }
 
     function viewCart() {
@@ -300,7 +263,7 @@
         let cartContent = "Itens no carrinho:\n";
         let total = 0;
         cart.forEach(item => {
-          cartContent += `${item.title} - ${item.price}\n`;
+          cartContent += `${item.name} - ${item.price}\n`;
           total += parseFloat(item.price.replace("R$", "").trim());
         });
         total = total.toFixed(2);
@@ -315,17 +278,7 @@
 
     async function init() {
       const products = await fetchData();
-      populateCategories(products);
       populateProducts(products);
-    }
-
-    function filterByCategory() {
-      const selectedCategory = document.getElementById("categoryFilter").value;
-      document.getElementById("categoryTitle").textContent = selectedCategory === "Todos" ? "Todos os Livros" : selectedCategory;
-      const filteredProducts = selectedCategory === "Todos" 
-        ? allProducts 
-        : allProducts.filter(product => product["Gênero"] === selectedCategory);
-      populateProducts(filteredProducts);
     }
 
     init();
