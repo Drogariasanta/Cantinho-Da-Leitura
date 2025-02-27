@@ -1,246 +1,152 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cantinho da Leitura</title>
-  <style>
-    :root {
-      --primary: #6D4C41;      /* Marrom sofisticado */
-      --secondary: #4E342E;    /* Marrom mais escuro */
-      --accent: #A1887F;       /* Toque sutil de cor */
-      --text-color: #333;
-      --bg-color: #fefaf6;
-      --footer-bg: #6D4C41;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-color);
-    }
-
-    /* Carregamento */
-    #loading {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.9);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    }
-
-    .spinner {
-      width: 60px;
-      height: 60px;
-      border: 6px solid #ddd;
-      border-top: 6px solid var(--primary);
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    /* Cabeçalho */
-    header {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      text-align: center;
-      padding: 40px 10px;
-      color: #fff;
-      font-size: 2em;
-      font-weight: bold;
-    }
-
-    /* Layout de Produtos */
-    .container {
-      max-width: 1200px;
-      margin: 20px auto;
-      padding: 0 20px;
-    }
-
-    #productContainer {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-    }
-
-    .product {
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-      padding: 15px;
-      text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .product:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-    }
-
-    .product-image {
-      width: 100%;
-      aspect-ratio: 3/4; /* Mantém a proporção ideal */
-      overflow: hidden;
-      border-radius: 8px;
-    }
-
-    .product-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain; /* Evita cortes mantendo as imagens visíveis */
-    }
-
-    .product h3 {
-      margin: 10px 0;
-      font-size: 1.4em;
-      color: var(--primary);
-    }
-
-    .product p {
-      font-size: 1em;
-      color: #666;
-      margin-bottom: 10px;
-      min-height: 50px;
-    }
-
-    .price {
-      font-size: 1.3em;
-      font-weight: bold;
-      color: var(--secondary);
-      margin-bottom: 10px;
-    }
-
-    /* Botões */
-    .button-group {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .btn {
-      background-color: var(--primary);
-      color: #fff;
-      padding: 10px 15px;
-      border-radius: 5px;
-      font-size: 1em;
-      cursor: pointer;
-      transition: background 0.3s;
-      border: none;
-    }
-
-    .btn:hover {
-      background-color: var(--secondary);
-    }
-
-    .btn.contact {
-      background-color: var(--accent);
-    }
-
-    .btn.contact:hover {
-      background-color: var(--secondary);
-    }
-
-    /* Rodapé */
-    footer {
-      background-color: var(--footer-bg);
-      color: #fff;
-      text-align: center;
-      padding: 15px;
-      margin-top: 30px;
-    }
-
-    @media (max-width: 768px) {
-      header {
-        font-size: 1.8em;
-        padding: 30px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cantinho da Leitura - Drogaria Santa Maria Pinheirinho</title>
+    <style>
+        /* Reset e estilos globais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background-color: #f4f4f9;
+            color: #333;
+            text-align: center;
+        }
+        header {
+            background-color: #b71c1c;
+            color: white;
+            padding: 10px 0;
+            font-size: 1.5em;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+        #loading {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        #productContainer {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            justify-content: center;
+            padding: 20px;
+        }
+        .product {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .product:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+        .product img {
+            width: 100%;
+            height: 250px;
+            object-fit: contain;
+            border-radius: 10px;
+            background: #fff;
+        }
+        .product h3 {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+        .product p {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .price {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #b71c1c;
+            margin-bottom: 10px;
+        }
+        .button-group .btn {
+            display: inline-block;
+            padding: 12px 18px;
+            background-color: #b71c1c;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 1em;
+            transition: background 0.3s;
+        }
+        .button-group .btn:hover {
+            background-color: #9a1313;
+        }
+        footer {
+            background-color: #b71c1c;
+            color: white;
+            padding: 15px 0;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+    </style>
 </head>
 <body>
-
-  <!-- Tela de Carregamento -->
-  <div id="loading">
-    <div class="spinner"></div>
-  </div>
-
-  <!-- Cabeçalho -->
-  <header>Cantinho da Leitura 📚</header>
-
-  <!-- Conteúdo -->
-  <div class="container">
-    <div id="productContainer"></div>
-  </div>
-
-  <!-- Rodapé -->
-  <footer>© 2024 Cantinho da Leitura. Todos os direitos reservados.</footer>
-
-  <script>
-    const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSWRKbzazcMWt0NBzU5t91uq40CVwG80y6Z4ZqLTjde4duDPlLk9vY2PJks1lm2ZkAv3REIrWJSp5ys/pub?output=csv";
-
-    async function fetchData() {
-      try {
-        const response = await fetch(sheetUrl);
-        const data = await response.text();
-        const products = parseCSV(data);
-        renderProducts(products);
-      } catch (error) {
-        console.error("Erro ao carregar dados:", error);
-      }
-    }
-
-    function parseCSV(data) {
-      const rows = data.split("\n").filter(row => row.trim() !== "");
-      const headers = rows[0].split(",").map(h => h.trim().toLowerCase());
-      return rows.slice(1).map(row => {
-        const values = row.split(",").map(v => v.trim());
-        let product = {};
-        headers.forEach((header, index) => {
-          product[header] = values[index] || "";
-        });
-        return product;
-      });
-    }
-
-    function renderProducts(products) {
-      const container = document.getElementById("productContainer");
-      container.innerHTML = "";
-      products.forEach(product => {
-        if (product["imagem"] && product["nome do produto"]) {
-          container.innerHTML += `
-            <div class="product">
-              <div class="product-image">
-                <img src="${product["imagem"]}" alt="${product["nome do produto"]}">
-              </div>
-              <h3>${product["nome do produto"]}</h3>
-              <p>${product["descrição do produto"]}</p>
-              <div class="price">${product["preço"]}</div>
-              <div class="button-group">
-                <button class="btn contact">Comprar Agora</button>
-              </div>
-            </div>`;
+    <header>Cantinho da Leitura - Drogaria Santa Maria Pinheirinho</header>
+    <div class="container">
+        <p id="loading">Carregando produtos...</p>
+        <div id="productContainer"></div>
+    </div>
+    <footer>
+        &copy; 2024 Drogaria Santa Maria Pinheirinho. Todos os direitos reservados.
+    </footer>
+    <script>
+        const spreadsheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSWRKbzazcMWt0NBzU5t91uq40CVwG80y6Z4ZqLTjde4duDPlLk9vY2PJks1lm2ZkAv3REIrWJSp5ys/pub?output=csv";
+        async function fetchData() {
+            try {
+                const response = await fetch(spreadsheetUrl);
+                const data = await response.text();
+                parseCSV(data);
+            } catch (error) {
+                document.getElementById("loading").innerText = "Erro ao carregar produtos.";
+            }
         }
-      });
-      document.getElementById("loading").style.display = "none";
-    }
-
-    fetchData();
-  </script>
-
+        function parseCSV(data) {
+            const rows = data.split("\n").slice(1);
+            const productContainer = document.getElementById("productContainer");
+            productContainer.innerHTML = "";
+            rows.forEach(row => {
+                const columns = row.split(",");
+                if (columns.length >= 4) {
+                    const image = columns[0].trim();
+                    const name = columns[1].trim();
+                    const description = columns[2].trim();
+                    const price = columns[3].trim();
+                    if (image && name && price) {
+                        productContainer.innerHTML += `
+                            <div class="product">
+                                <img src="${image}" alt="${name}">
+                                <h3>${name}</h3>
+                                <p>${description}</p>
+                                <div class="price">R$ ${price}</div>
+                                <div class="button-group">
+                                    <a href="https://wa.me/553534703859?text=Quero%20comprar%20${encodeURIComponent(name)}" class="btn" target="_blank">Comprar</a>
+                                </div>
+                            </div>
+                        `;
+                    }
+                }
+            });
+            document.getElementById("loading").style.display = "none";
+        }
+        fetchData();
+    </script>
 </body>
 </html>
