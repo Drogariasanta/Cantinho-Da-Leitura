@@ -2,250 +2,208 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cantinho da Leitura</title>
   <style>
     :root {
-      --primary: #6D4C41;      /* Marrom para cabeçalho, botões e rodapé */
-      --secondary: #4E342E;    /* Marrom mais escuro para detalhes */
-      --accent: #A1887F;       /* Destaque suave */
+      --primary: #6D4C41;      /* Marrom sofisticado */
+      --secondary: #4E342E;    /* Marrom mais escuro */
+      --accent: #A1887F;       /* Toque sutil de cor */
       --text-color: #333;
-      --bg-color: #f5f5f5;
+      --bg-color: #fefaf6;
       --footer-bg: #6D4C41;
     }
+
     * {
       box-sizing: border-box;
-    }
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
       margin: 0;
       padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-    /* Loading Overlay */
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    /* Carregamento */
     #loading {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(245, 245, 245, 0.9);
+      background: rgba(255, 255, 255, 0.9);
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 9999;
+      z-index: 1000;
     }
+
     .spinner {
-      border: 8px solid #f3f3f3;
-      border-top: 8px solid var(--primary);
-      border-radius: 50%;
       width: 60px;
       height: 60px;
+      border: 6px solid #ddd;
+      border-top: 6px solid var(--primary);
+      border-radius: 50%;
       animation: spin 1s linear infinite;
     }
+
     @keyframes spin {
-      0% { transform: rotate(0deg);}
-      100% { transform: rotate(360deg);}
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
+
+    /* Cabeçalho */
     header {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
       text-align: center;
-      position: relative;
-      height: 300px;
-      padding: 20px;
+      padding: 40px 10px;
       color: #fff;
-    }
-    header h1 {
-      font-size: 2.8em;
-      margin: 10px 0;
-      z-index: 1;
-    }
-    .reading-decorations {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
       font-size: 2em;
-      animation: bounce 2s infinite;
-      z-index: 2;
+      font-weight: bold;
     }
-    @keyframes bounce {
-      0%, 100% { transform: translateX(-50%) translateY(0); }
-      50% { transform: translateX(-50%) translateY(-10px); }
-    }
+
+    /* Layout de Produtos */
     .container {
       max-width: 1200px;
       margin: 20px auto;
       padding: 0 20px;
     }
-    /* Grid responsivo para produtos */
+
     #productContainer {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 20px;
     }
+
     .product {
       background: #fff;
-      border: 1px solid #ddd;
       border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
       padding: 15px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      text-align: center;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+
     .product:hover {
-      transform: translateY(-5px) scale(1.02);
+      transform: translateY(-5px);
       box-shadow: 0 6px 15px rgba(0,0,0,0.2);
     }
+
     .product-image {
       width: 100%;
-      height: 180px;
+      aspect-ratio: 3/4; /* Mantém a proporção ideal */
       overflow: hidden;
-      border-radius: 5px;
-      margin-bottom: 10px;
+      border-radius: 8px;
     }
+
     .product-image img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain; /* Evita cortes mantendo as imagens visíveis */
     }
+
     .product h3 {
-      font-size: 1.3em;
       margin: 10px 0;
+      font-size: 1.4em;
       color: var(--primary);
     }
+
     .product p {
-      font-size: 0.95em;
+      font-size: 1em;
       color: #666;
       margin-bottom: 10px;
-      min-height: 60px;
+      min-height: 50px;
     }
+
     .price {
-      color: var(--primary);
+      font-size: 1.3em;
       font-weight: bold;
-      font-size: 1.2em;
-      margin: 10px 0;
+      color: var(--secondary);
+      margin-bottom: 10px;
     }
+
+    /* Botões */
     .button-group {
       display: flex;
       justify-content: center;
       gap: 10px;
       margin-top: 10px;
     }
+
     .btn {
       background-color: var(--primary);
       color: #fff;
-      padding: 8px 12px;
+      padding: 10px 15px;
       border-radius: 5px;
       font-size: 1em;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background 0.3s;
       border: none;
     }
+
     .btn:hover {
       background-color: var(--secondary);
     }
+
     .btn.contact {
       background-color: var(--accent);
     }
+
     .btn.contact:hover {
       background-color: var(--secondary);
     }
-    #cartButton {
-      background-color: var(--accent);
-      color: #fff;
-      padding: 12px 20px;
-      border-radius: 5px;
-      font-size: 1.2em;
-      position: fixed;
-      right: 10px;
-      bottom: 10%;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      z-index: 10;
-      border: none;
-    }
-    #cartButton:hover {
-      background-color: var(--secondary);
-    }
+
+    /* Rodapé */
     footer {
       background-color: var(--footer-bg);
       color: #fff;
       text-align: center;
-      padding: 15px 0;
-      font-size: 0.9em;
-      margin-top: 20px;
+      padding: 15px;
+      margin-top: 30px;
     }
+
     @media (max-width: 768px) {
       header {
-        height: 220px;
-        padding: 10px;
-      }
-      header h1 {
-        font-size: 2em;
-      }
-      .reading-decorations {
-        font-size: 1.5em;
-        bottom: 10px;
+        font-size: 1.8em;
+        padding: 30px;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Loading Overlay -->
+
+  <!-- Tela de Carregamento -->
   <div id="loading">
     <div class="spinner"></div>
   </div>
-  
-  <header>
-    <h1>Cantinho da Leitura</h1>
-    <div class="reading-decorations">
-      <span>📚</span>
-      <span>📖</span>
-      <span>🔖</span>
-      <span>☕</span>
-    </div>
-  </header>
-  
+
+  <!-- Cabeçalho -->
+  <header>Cantinho da Leitura 📚</header>
+
+  <!-- Conteúdo -->
   <div class="container">
-    <div id="productContainer">
-      <!-- Produtos serão carregados aqui -->
-    </div>
+    <div id="productContainer"></div>
   </div>
-  
-  <footer>
-    © 2024 Cantinho da Leitura. Todos os direitos reservados.
-  </footer>
-  
-  <button id="cartButton" onclick="viewCart()">Ver Carrinho</button>
-  
+
+  <!-- Rodapé -->
+  <footer>© 2024 Cantinho da Leitura. Todos os direitos reservados.</footer>
+
   <script>
-    const spreadsheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSWRKbzazcMWt0NBzU5t91uq40CVwG80y6Z4ZqLTjde4duDPlLk9vY2PJks1lm2ZkAv3REIrWJSp5ys/pub?output=csv";
-    let cart = [];
-    let allProducts = [];
-  
+    const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSWRKbzazcMWt0NBzU5t91uq40CVwG80y6Z4ZqLTjde4duDPlLk9vY2PJks1lm2ZkAv3REIrWJSp5ys/pub?output=csv";
+
     async function fetchData() {
       try {
-        if (allProducts.length === 0) {
-          const response = await fetch(spreadsheetUrl);
-          const data = await response.text();
-          allProducts = parseCSV(data);
-        }
-        return allProducts;
+        const response = await fetch(sheetUrl);
+        const data = await response.text();
+        const products = parseCSV(data);
+        renderProducts(products);
       } catch (error) {
-        console.error("Erro ao buscar dados:", error);
-        return [];
+        console.error("Erro ao carregar dados:", error);
       }
     }
-  
-    // Parsing básico do CSV – converte cabeçalhos para minúsculas
+
     function parseCSV(data) {
       const rows = data.split("\n").filter(row => row.trim() !== "");
       const headers = rows[0].split(",").map(h => h.trim().toLowerCase());
@@ -258,67 +216,31 @@
         return product;
       });
     }
-  
-    function populateProducts(products) {
-      const productContainer = document.getElementById("productContainer");
-      productContainer.innerHTML = "";
+
+    function renderProducts(products) {
+      const container = document.getElementById("productContainer");
+      container.innerHTML = "";
       products.forEach(product => {
-        const nome = product["nome do produto"];
-        const descricao = product["descrição do produto"];
-        const preco = product["preço"];
-        const imagem = product["imagem"];
-        if (nome && imagem) {
-          const productElement = `
+        if (product["imagem"] && product["nome do produto"]) {
+          container.innerHTML += `
             <div class="product">
               <div class="product-image">
-                <img src="${imagem}" alt="${nome}">
+                <img src="${product["imagem"]}" alt="${product["nome do produto"]}">
               </div>
-              <h3>${nome}</h3>
-              <p>${descricao}</p>
-              <div class="price">${preco}</div>
+              <h3>${product["nome do produto"]}</h3>
+              <p>${product["descrição do produto"]}</p>
+              <div class="price">${product["preço"]}</div>
               <div class="button-group">
-                <button class="btn" onclick="addToCart('${nome}', '${preco}')">Adicionar ao Carrinho</button>
-                <a href="https://wa.me/553534703859?text=Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20${encodeURIComponent(nome)}" class="btn contact" target="_blank">Entrar em Contato</a>
+                <button class="btn contact">Comprar Agora</button>
               </div>
             </div>`;
-          productContainer.innerHTML += productElement;
         }
       });
-      // Remove o loading após carregar os produtos
       document.getElementById("loading").style.display = "none";
     }
-  
-    function addToCart(name, price) {
-      cart.push({ name, price });
-      alert(`${name} foi adicionado ao carrinho!`);
-    }
-  
-    function viewCart() {
-      if (cart.length === 0) {
-        alert("Seu carrinho está vazio.");
-      } else {
-        let cartContent = "Itens no carrinho:\n";
-        let total = 0;
-        cart.forEach(item => {
-          cartContent += `${item.name} - ${item.price}\n`;
-          total += parseFloat(item.price.replace("R$", "").trim());
-        });
-        total = total.toFixed(2);
-        const customerName = prompt("Digite seu nome:");
-        const paymentMethod = prompt("Digite a forma de pagamento:");
-        const address = prompt("Digite seu endereço:");
-        const orderMessage = `Pedido de ${customerName}:\n${cartContent}Total: R$ ${total}\nForma de pagamento: ${paymentMethod}\nEndereço: ${address}`;
-        const whatsappUrl = `https://wa.me/553534703859?text=${encodeURIComponent(orderMessage)}`;
-        window.open(whatsappUrl, "_blank");
-      }
-    }
-  
-    async function init() {
-      const products = await fetchData();
-      populateProducts(products);
-    }
-  
-    init();
+
+    fetchData();
   </script>
+
 </body>
 </html>
