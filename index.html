@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -38,7 +37,7 @@
         }
         #productContainer {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Ajuste na grid */
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
             justify-content: center;
             padding: 20px;
@@ -115,25 +114,32 @@
             try {
                 const response = await fetch(spreadsheetUrl);
                 const data = await response.text();
-                console.log(data);  // Para depurar e ver o conteúdo carregado
                 parseCSV(data);
             } catch (error) {
                 document.getElementById("loading").innerText = "Erro ao carregar produtos.";
-                console.error("Erro ao carregar dados:", error);
+                console.error("Erro ao carregar dados da planilha:", error);
             }
         }
 
         function parseCSV(data) {
-            const rows = data.split("\n").slice(1); // Ignora o cabeçalho
+            const rows = data.split("\n").slice(1); // Remove a primeira linha (cabeçalho)
             const productContainer = document.getElementById("productContainer");
-            productContainer.innerHTML = ""; // Limpa o conteúdo anterior
+            productContainer.innerHTML = "";
+
+            if (rows.length === 0) {
+                document.getElementById("loading").innerText = "Nenhum produto encontrado.";
+                return;
+            }
+
             rows.forEach(row => {
-                const columns = row.split(",");
+                const columns = row.split(",").map(col => col.trim()); // Remover espaços extras de cada coluna
                 if (columns.length >= 4) {
-                    const image = columns[0].trim();
-                    const name = columns[1].trim();
-                    const description = columns[2].trim();
-                    const price = columns[3].trim();
+                    const image = columns[0];
+                    const name = columns[1];
+                    const description = columns[2];
+                    const price = columns[3];
+
+                    // Verifique se todos os dados estão presentes
                     if (image && name && price) {
                         productContainer.innerHTML += `
                             <div class="product">
@@ -149,11 +155,15 @@
                     }
                 }
             });
-            document.getElementById("loading").style.display = "none";  // Esconde a mensagem de carregamento
+
+            if (productContainer.innerHTML === "") {
+                document.getElementById("loading").innerText = "Nenhum produto encontrado.";
+            }
+
+            document.getElementById("loading").style.display = "none";
         }
 
         fetchData();
     </script>
 </body>
 </html>
-```
