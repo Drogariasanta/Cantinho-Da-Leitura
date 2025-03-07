@@ -25,6 +25,13 @@
       --header-bg: #4B79A1;        /* Azul mais fechado para cabeçalho */
       --transition-speed: 0.3s;
     }
+    
+    /* Fundo que remete à textura de papel de livro */
+    body {
+      background: linear-gradient(135deg, #FDF6E3, #ffffff);
+      color: #333;
+    }
+    
     html {
       scroll-behavior: smooth;
     }
@@ -66,29 +73,55 @@
       z-index: 250;
     }
     
-    /* Container para "estrelas" caindo (efeito lúdico) */
-    #confetti-container {
+    /* Modal para Catálogo */
+    .modal {
+      display: none;
       position: fixed;
-      top: 0;
+      z-index: 200;
       left: 0;
+      top: 0;
       width: 100%;
       height: 100%;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 1;
+      overflow: auto;
+      background: rgba(75,121,161,0.7);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
     }
-    .confetti {
+    .modal-content {
+      background-color: var(--header-bg);
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+      position: relative;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+    .modal-content h2,
+    .modal-content p {
+      color: var(--light-color);
+      font-family: 'Fredoka One', cursive;
+    }
+    .modal-content h2 { margin-bottom: 15px; }
+    .modal-content p { margin-bottom: 20px; }
+    .modal-btn {
+      background: var(--secondary-color);
+      color: var(--header-bg);
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background 0.3s;
+      font-weight: 600;
+    }
+    .modal-btn:hover { background: #e6c200; }
+    .modal .close {
       position: absolute;
-      background-color: var(--primary-color);
-      opacity: 0;
-      border-radius: 50%;
-      transform: translateY(-100px) rotate(0deg);
-      animation: confettiFall linear infinite;
-    }
-    @keyframes confettiFall {
-      0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
-      80% { opacity: 0.8; }
-      100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+      top: 10px;
+      right: 15px;
+      font-size: 1.5em;
+      cursor: pointer;
+      color: var(--light-color);
     }
     
     /* Cabeçalho e Navegação */
@@ -287,8 +320,6 @@
       color: var(--light-color);
       text-align: center;
       padding: 20px 0;
-      text-transform: uppercase;
-      letter-spacing: 1px;
       font-size: 0.9em;
       position: relative;
       z-index: 3;
@@ -325,16 +356,23 @@
   <!-- Scroll Progress Bar -->
   <div id="progressBar"></div>
   
-  <!-- Container para "estrelas" caindo -->
-  <div id="confetti-container"></div>
-
+  <!-- Modal para Catálogo -->
+  <div id="catalogModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Dê uma olhada no nosso catálogo de produtos!</h2>
+      <p>Confira as novidades e promoções incríveis que preparamos para você.</p>
+      <a href="https://drogariasanta.github.io/Catalogo-de-Produtos/" class="modal-btn" target="_blank">Ver Catálogo</a>
+    </div>
+  </div>
+  
   <!-- Cabeçalho com Navegação e Ícones Lúdicos -->
   <header id="header">
     <div class="header-container">
       <h1>Cantinho da Leitura</h1>
       <nav>
         <ul>
-          <li><a href="https://drogariasanta.github.io/Catalogo-de-Produtos/" target="_blank" id="inicioLink">Início</a></li>
+          <li><a href="#" id="inicioLink">Início</a></li>
           <li><a href="#productContainer">Livros</a></li>
           <li><a href="https://wa.me/553534703859" target="_blank">Contato</a></li>
         </ul>
@@ -346,7 +384,7 @@
       </div>
     </div>
   </header>
-
+  
   <!-- Conteúdo Principal -->
   <div class="container">
     <div class="cta-banner">
@@ -355,17 +393,17 @@
     <p id="loading" style="text-align: center; margin-top: 20px;">Carregando livros...</p>
     <div id="productContainer"></div>
   </div>
-
+  
   <!-- Botão Back-to-Top -->
   <button id="backToTop">↑</button>
-
+  
   <!-- Rodapé -->
   <footer id="contato">
     <div class="footer-container">
-      <p>55 35 3470-3859</p>
+      <p>Entre em contato conosco pelo WhatsApp: 55 35 3470-3859</p>
     </div>
   </footer>
-
+  
   <script>
     // Preloader
     window.addEventListener('load', () => {
@@ -373,7 +411,7 @@
       preloader.style.opacity = '0';
       setTimeout(() => preloader.style.display = 'none', 500);
     });
-
+  
     // Scroll Progress Bar
     window.addEventListener('scroll', () => {
       const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
@@ -381,24 +419,25 @@
       const scrolled = (winScroll / height) * 100;
       document.getElementById('progressBar').style.width = scrolled + '%';
     });
-
-    // Geração Dinâmica de "estrelas" caindo (150)
-    const confettiContainer = document.getElementById('confetti-container');
-    const totalConfetti = 150;
-    const colors = ['#82CFFD', '#FFEEAD', '#CFF09E', '#FFC6FF', '#A0E7E5'];
-    for (let i = 0; i < totalConfetti; i++) {
-      const confetti = document.createElement('div');
-      confetti.classList.add('confetti');
-      confetti.style.left = Math.random() * 100 + '%';
-      const size = Math.random() * 8 + 4;
-      confetti.style.width = size + 'px';
-      confetti.style.height = size + 'px';
-      confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-      confetti.style.animationDuration = (Math.random() * 3 + 4) + 's';
-      confetti.style.animationDelay = Math.random() * 5 + 's';
-      confettiContainer.appendChild(confetti);
-    }
-
+  
+    // Modal para Catálogo
+    const inicioLink = document.getElementById('inicioLink');
+    const catalogModal = document.getElementById('catalogModal');
+    const closeModal = document.querySelector('.modal .close');
+  
+    inicioLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      catalogModal.style.display = 'flex';
+    });
+    closeModal.addEventListener('click', () => {
+      catalogModal.style.display = 'none';
+    });
+    window.addEventListener('click', (e) => {
+      if (e.target == catalogModal) {
+        catalogModal.style.display = 'none';
+      }
+    });
+  
     // Botão Back-to-Top
     const backToTop = document.getElementById('backToTop');
     window.addEventListener('scroll', () => {
@@ -411,7 +450,7 @@
     backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-
+  
     // Cabeçalho encolhe ao rolar a página (no desktop)
     const header = document.getElementById('header');
     window.addEventListener('scroll', () => {
@@ -421,7 +460,7 @@
         header.classList.remove('scrolled');
       }
     });
-
+  
     // Carregamento e Animação dos Livros via CSV
     const spreadsheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSPYa3cL11uKyRkv1ztNu9HOCQ35aw_BuToapZar-3BwEr8wnILkRdEQVzvaLVvHOgoMZ_c9rUAIXfQ/pub?output=csv";
     async function fetchData() {
