@@ -26,7 +26,7 @@
       --transition-speed: 0.3s;
     }
     
-    /* Fundo que remete à textura de papel de livro */
+    /* Fundo com textura suave de papel */
     body {
       background: linear-gradient(135deg, #FDF6E3, #ffffff);
       color: #333;
@@ -97,6 +97,11 @@
       width: 90%;
       position: relative;
       box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      animation: modalAppear 0.5s ease forwards;
+    }
+    @keyframes modalAppear {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
     .modal-content h2,
     .modal-content p {
@@ -145,6 +150,7 @@
       align-items: center;
       justify-content: space-between;
       flex-direction: row;
+      position: relative;
     }
     header h1 {
       font-size: 2.2em;
@@ -179,6 +185,24 @@
       50% { transform: translateY(-10px) rotate(10deg); }
     }
     
+    /* Scroll Down Arrow */
+    #scrollDown {
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2.5em;
+      color: var(--light-color);
+      cursor: pointer;
+      animation: bounce 2s infinite;
+      z-index: 100;
+    }
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+      40% { transform: translateX(-50%) translateY(-10px); }
+      60% { transform: translateX(-50%) translateY(-5px); }
+    }
+    
     /* Faixa de Call-to-Action (CTA) */
     .cta-banner {
       background: var(--secondary-color);
@@ -196,7 +220,7 @@
     /* Container Principal */
     .container {
       max-width: 1200px;
-      margin: 120px auto 40px; /* margem para compensar o cabeçalho fixo */
+      margin: 120px auto 40px;
       padding: 0 20px;
       z-index: 3;
       position: relative;
@@ -224,7 +248,7 @@
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
     .product:hover {
-      transform: translateY(-8px);
+      transform: perspective(1000px) rotateX(2deg) rotateY(2deg) translateY(-8px);
       box-shadow: 0 12px 25px rgba(0,0,0,0.15);
     }
     .product img {
@@ -383,6 +407,8 @@
         <div class="mask">✨</div>
       </div>
     </div>
+    <!-- Scroll Down Arrow -->
+    <div id="scrollDown" onclick="document.getElementById('productContainer').scrollIntoView({ behavior: 'smooth' })">&#8595;</div>
   </header>
   
   <!-- Conteúdo Principal -->
@@ -401,6 +427,7 @@
   <footer id="contato">
     <div class="footer-container">
       <p>Entre em contato conosco pelo WhatsApp: 55 35 3470-3859</p>
+      <p>Agradecemos sua visita e desejamos uma leitura inspiradora!</p>
     </div>
   </footer>
   
