@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cantinho da Leitura Infantil - Histórias Mágicas</title>
-  <meta name="description" content="Explore um mundo de histórias encantadas e aventuras inesquecíveis no Cantinho da Leitura Infantil.">
+  <title>Cantinho da Leitura - Histórias Mágicas</title>
+  <meta name="description" content="Descubra nossa seleção especial de livros e crie seu cantinho de leitura perfeito.">
   <link rel="icon" href="favicon.ico">
   <!-- Google Fonts: Fredoka One para títulos e Poppins para textos -->
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -17,12 +17,12 @@
       font-family: 'Poppins', sans-serif;
     }
     :root {
-      --primary-color: #FF6F61; /* Coral vibrante */
-      --secondary-color: #FFD700; /* Dourado */
-      --tertiary-color: #87CEFA; /* Azul celeste */
-      --accent-color: #32CD32; /* Verde limão */
-      --light-color: #fff;
-      --header-bg: #FF6F61; /* Fundo do cabeçalho */
+      --primary-color: #82CFFD;  /* Azul pastel */
+      --secondary-color: #FFEEAD;  /* Amarelo suave */
+      --tertiary-color: #CFF09E;   /* Verde menta */
+      --accent-color: #FFC6FF;     /* Rosa pastel */
+      --light-color: #ffffff;
+      --header-bg: #4B79A1;        /* Azul mais fechado para cabeçalho */
       --transition-speed: 0.3s;
     }
     html {
@@ -79,7 +79,7 @@
     }
     .confetti {
       position: absolute;
-      background-color: #FF6F61;
+      background-color: var(--primary-color);
       opacity: 0;
       border-radius: 50%;
       transform: translateY(-100px) rotate(0deg);
@@ -89,56 +89,6 @@
       0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
       80% { opacity: 0.8; }
       100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
-    }
-    
-    /* Modal de Boas-Vindas */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 200;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background: rgba(255,111,97,0.7);
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-    .modal-content {
-      background-color: var(--header-bg);
-      padding: 30px;
-      border-radius: 10px;
-      text-align: center;
-      max-width: 400px;
-      width: 90%;
-      position: relative;
-      box-shadow: 0 8px 25px rgba(255,111,97,0.4);
-    }
-    .modal-content h2,
-    .modal-content p {
-      color: var(--light-color);
-      font-family: 'Fredoka One', cursive;
-    }
-    .modal-content h2 { margin-bottom: 15px; }
-    .modal-content p { margin-bottom: 20px; }
-    .modal-btn {
-      background: var(--secondary-color);
-      color: var(--header-bg);
-      padding: 10px 20px;
-      text-decoration: none;
-      border-radius: 5px;
-      transition: background 0.3s;
-    }
-    .modal-btn:hover { background: #e6c200; }
-    .modal .close {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 1.5em;
-      cursor: pointer;
-      color: var(--light-color);
     }
     
     /* Cabeçalho e Navegação */
@@ -290,7 +240,7 @@
       font-weight: 600;
     }
     .btn:hover {
-      background-color: #70b8e2;
+      background-color: #a8e6cf;
       transform: translateY(-2px);
     }
     .btn:active::after {
@@ -378,31 +328,21 @@
   <!-- Container para "estrelas" caindo -->
   <div id="confetti-container"></div>
 
-  <!-- Modal de Boas-Vindas -->
-  <div id="inicioModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2>Bem-vindo ao Cantinho da Leitura Infantil!</h2>
-      <p>Mergulhe num mundo mágico repleto de histórias e aventuras!</p>
-      <a href="#" class="modal-btn" id="modalBtn">Ver Livros</a>
-    </div>
-  </div>
-
   <!-- Cabeçalho com Navegação e Ícones Lúdicos -->
   <header id="header">
     <div class="header-container">
-      <h1>Cantinho da Leitura Infantil</h1>
+      <h1>Cantinho da Leitura</h1>
       <nav>
         <ul>
-          <li><a href="#" id="inicioLink">Início</a></li>
+          <li><a href="https://drogariasanta.github.io/Catalogo-de-Produtos/" target="_blank" id="inicioLink">Início</a></li>
           <li><a href="#productContainer">Livros</a></li>
-          <li><a href="#contato">Contato</a></li>
+          <li><a href="https://wa.me/553534703859" target="_blank">Contato</a></li>
         </ul>
       </nav>
       <div class="header-masks">
         <div class="mask">📚</div>
         <div class="mask">📖</div>
-        <div class="mask">🌈</div>
+        <div class="mask">✨</div>
       </div>
     </div>
   </header>
@@ -410,7 +350,7 @@
   <!-- Conteúdo Principal -->
   <div class="container">
     <div class="cta-banner">
-      Explore nossa coleção encantada de livros para pequenos leitores!
+      Explore nossa coleção encantada de livros e viva momentos mágicos de leitura!
     </div>
     <p id="loading" style="text-align: center; margin-top: 20px;">Carregando livros...</p>
     <div id="productContainer"></div>
@@ -422,8 +362,7 @@
   <!-- Rodapé -->
   <footer id="contato">
     <div class="footer-container">
-      <p>&copy; 2025 - Cantinho da Leitura Infantil. Todos os direitos reservados.</p>
-      <p>Contato: contato@cantinhodaleiturainfantil.com</p>
+      <p>55 35 3470-3859</p>
     </div>
   </footer>
 
@@ -446,7 +385,7 @@
     // Geração Dinâmica de "estrelas" caindo (150)
     const confettiContainer = document.getElementById('confetti-container');
     const totalConfetti = 150;
-    const colors = ['#FF6F61', '#FFD700', '#87CEFA', '#32CD32', '#FF69B4'];
+    const colors = ['#82CFFD', '#FFEEAD', '#CFF09E', '#FFC6FF', '#A0E7E5'];
     for (let i = 0; i < totalConfetti; i++) {
       const confetti = document.createElement('div');
       confetti.classList.add('confetti');
@@ -459,30 +398,6 @@
       confetti.style.animationDelay = Math.random() * 5 + 's';
       confettiContainer.appendChild(confetti);
     }
-
-    // Modal de Boas-Vindas
-    const inicioLink = document.getElementById('inicioLink');
-    const inicioModal = document.getElementById('inicioModal');
-    const closeModal = document.querySelector('.modal .close');
-    const modalBtn = document.getElementById('modalBtn');
-
-    inicioLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      inicioModal.style.display = 'flex';
-    });
-    closeModal.addEventListener('click', () => {
-      inicioModal.style.display = 'none';
-    });
-    window.addEventListener('click', (e) => {
-      if (e.target == inicioModal) {
-        inicioModal.style.display = 'none';
-      }
-    });
-    modalBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      inicioModal.style.display = 'none';
-      window.scrollTo({ top: document.getElementById('productContainer').offsetTop - 60, behavior: 'smooth' });
-    });
 
     // Botão Back-to-Top
     const backToTop = document.getElementById('backToTop');
