@@ -11,9 +11,7 @@
   <style>
     /* Reset e variáveis */
     * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+      margin: 0; padding: 0; box-sizing: border-box;
       font-family: 'Poppins', sans-serif;
     }
     :root {
@@ -22,13 +20,14 @@
       --tertiary-color: #CFF09E;   /* Verde menta */
       --accent-color: #FFC6FF;     /* Rosa pastel */
       --light-color: #ffffff;
-      --header-bg: #4B79A1;        /* Azul mais fechado para cabeçalho */
+      --header-bg: #4B79A1;        /* Azul mais fechado */
       --transition-speed: 0.3s;
     }
     
-    /* Fundo com textura suave de papel */
+    /* Fundo com textura de papel antigo */
     body {
-      background: linear-gradient(135deg, #FDF6E3, #ffffff);
+      background: url('https://www.toptal.com/designers/subtlepatterns/patterns/old_paper.png');
+      background-size: auto;
       color: #333;
     }
     
@@ -38,71 +37,40 @@
     
     /* Preloader */
     #preloader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       background: var(--header-bg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       z-index: 300;
     }
     #preloader .spinner {
       border: 4px solid var(--header-bg);
       border-top: 4px solid var(--secondary-color);
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
+      border-radius: 50%; width: 50px; height: 50px;
       animation: spin 1s linear infinite;
     }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     
     /* Scroll Progress Bar */
     #progressBar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 0%;
-      height: 5px;
-      background: var(--secondary-color);
-      z-index: 250;
+      position: fixed; top: 0; left: 0; width: 0%; height: 5px;
+      background: var(--secondary-color); z-index: 250;
     }
     
     /* Modal para Catálogo */
     .modal {
-      display: none;
-      position: fixed;
-      z-index: 200;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
+      display: none; position: fixed; z-index: 200; left: 0; top: 0;
+      width: 100%; height: 100%; overflow: auto;
       background: rgba(75,121,161,0.7);
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
+      align-items: center; justify-content: center; padding: 20px;
     }
     .modal-content {
       background-color: var(--header-bg);
-      padding: 30px;
-      border-radius: 10px;
-      text-align: center;
-      max-width: 400px;
-      width: 90%;
-      position: relative;
+      padding: 30px; border-radius: 10px; text-align: center;
+      max-width: 400px; width: 90%; position: relative;
       box-shadow: 0 8px 25px rgba(0,0,0,0.2);
       animation: modalAppear 0.5s ease forwards;
     }
-    @keyframes modalAppear {
-      from { transform: scale(0.8); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
+    @keyframes modalAppear { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
     .modal-content h2,
     .modal-content p {
       color: var(--light-color);
@@ -121,12 +89,8 @@
     }
     .modal-btn:hover { background: #e6c200; }
     .modal .close {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 1.5em;
-      cursor: pointer;
-      color: var(--light-color);
+      position: absolute; top: 10px; right: 15px;
+      font-size: 1.5em; cursor: pointer; color: var(--light-color);
     }
     
     /* Cabeçalho e Navegação */
@@ -134,50 +98,38 @@
       background: var(--header-bg);
       padding: 20px 0;
       box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 150;
-      transition: padding 0.3s;
+      position: fixed; top: 0; left: 0; width: 100%;
+      z-index: 150; transition: padding 0.3s;
     }
     header.scrolled { padding: 10px 0; }
     .header-container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-direction: row;
-      position: relative;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-direction: row; position: relative;
     }
     header h1 {
-      font-size: 2.2em;
-      color: var(--light-color);
-      letter-spacing: 1px;
-      font-family: 'Fredoka One', cursive;
+      font-size: 2.2em; color: var(--light-color);
+      letter-spacing: 1px; font-family: 'Fredoka One', cursive;
       transition: font-size 0.3s;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
     }
     header.scrolled h1 { font-size: 1.8em; }
     nav ul {
       list-style: none;
-      display: flex;
-      gap: 20px;
+      display: flex; gap: 20px;
     }
     nav ul li a {
       color: var(--light-color);
       text-decoration: none;
       padding: 8px 12px;
       transition: background 0.3s ease;
-      border-radius: 4px;
-      font-weight: 600;
+      border-radius: 4px; font-weight: 600;
     }
     nav ul li a:hover { background: rgba(255,255,255,0.2); }
     .header-masks {
-      display: flex;
-      gap: 15px;
-      font-size: 2em;
+      display: flex; gap: 15px; font-size: 2em;
     }
     .mask { animation: floatMask 5s ease-in-out infinite; }
     @keyframes floatMask {
@@ -185,14 +137,15 @@
       50% { transform: translateY(-10px) rotate(10deg); }
     }
     
-    /* Scroll Down Arrow */
+    /* Scroll Down Arrow (Refinado) */
     #scrollDown {
       position: absolute;
-      bottom: -20px;
+      bottom: -30px;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 2.5em;
+      font-size: 3em;
       color: var(--light-color);
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
       cursor: pointer;
       animation: bounce 2s infinite;
       z-index: 100;
@@ -312,9 +265,7 @@
       transform: translate(-50%, -50%) scale(0);
       animation: ripple 0.6s linear;
     }
-    @keyframes ripple {
-      to { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
-    }
+    @keyframes ripple { to { transform: translate(-50%, -50%) scale(2.5); opacity: 0; } }
     
     /* Botão Back-to-Top */
     #backToTop {
@@ -359,14 +310,8 @@
       }
       header h1 { font-size: 1.8em; }
       nav { margin-top: 10px; }
-      nav ul {
-        flex-direction: row;
-        gap: 10px;
-      }
-      .header-masks {
-        margin-top: 10px;
-        justify-content: center;
-      }
+      nav ul { flex-direction: row; gap: 10px; }
+      .header-masks { margin-top: 10px; justify-content: center; }
       .container { margin-top: 20px; }
       .product img { height: 220px; }
       .cta-banner { font-size: 1em; padding: 10px; }
@@ -408,7 +353,7 @@
       </div>
     </div>
     <!-- Scroll Down Arrow -->
-    <div id="scrollDown" onclick="document.getElementById('productContainer').scrollIntoView({ behavior: 'smooth' })">&#8595;</div>
+    <div id="scrollDown" onclick="document.getElementById('productContainer').scrollIntoView({ behavior: 'smooth' })">&#x25BC;</div>
   </header>
   
   <!-- Conteúdo Principal -->
@@ -421,7 +366,7 @@
   </div>
   
   <!-- Botão Back-to-Top -->
-  <button id="backToTop">↑</button>
+  <button id="backToTop">&#8679;</button>
   
   <!-- Rodapé -->
   <footer id="contato">
@@ -478,7 +423,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   
-    // Cabeçalho encolhe ao rolar a página (no desktop)
+    // Cabeçalho encolhe ao rolar a página
     const header = document.getElementById('header');
     window.addEventListener('scroll', () => {
       if (window.innerWidth > 768 && window.scrollY > 50) {
